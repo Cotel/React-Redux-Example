@@ -3,19 +3,26 @@ import {withRouter} from 'react-router'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 
-import {listTodos} from '../data/todo/actions'
+import {listTodos, completeTodo} from '../data/todo/actions'
 
 class TodoList extends Component {
 
-    componentDidMount() {
+    componentWillMount() {
         this.props.listTodos()
-        console.log(this.props.todos.list)
+    }
+
+    handleTodoClick(todo) {
+        this.props.completeTodo(todo)
     }
 
     renderTodos() {
+        console.log(this.props.todos.list)
         return this.props.todos.list.map((todo) => {
+            let boundTodoClick = this.handleTodoClick.bind(this, todo)
             return (
-                <li key={todo.name}>{todo.name} - Completado: {todo.completed === true ? 'SI' : 'NO'}</li>
+                <li key={todo.id} onClick={boundTodoClick}>
+                    {todo.name} - Completado: {todo.completed === true ? 'SI' : 'NO'}
+                </li>
             )
         })
     }
@@ -37,7 +44,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        listTodos: listTodos
+        listTodos: listTodos,
+        completeTodo: completeTodo
     }, dispatch)
 }
 
