@@ -1,14 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {Router, browserHistory} from 'react-router';
-import {Provider} from 'react-redux';
-import {createStore, applyMiddleware, compose} from 'redux';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import {Router, browserHistory} from 'react-router'
+import {Provider} from 'react-redux'
+import {createStore, applyMiddleware, compose} from 'redux'
 
-import reducers from './rootReducer';
-import AppRoutes from './scenes';
+import reducers from './rootReducer'
+import AppRoutes from './scenes'
 
-const middleware = [];
-const store = compose(applyMiddleware(...middleware)(createStore)(reducers));
+const middleware = []
+const store = compose(applyMiddleware(...middleware)(createStore)(reducers))
 
 ReactDOM.render(
     <Provider store={store}>
@@ -19,4 +19,4 @@ ReactDOM.render(
             {AppRoutes}
         </Router>
     </Provider>
-    , document.getElementById('root'));
+    , document.getElementById('root'))
