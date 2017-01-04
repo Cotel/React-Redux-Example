@@ -16,8 +16,13 @@ class TodoList extends Component {
     }
 
     renderTodos() {
-        console.log(this.props.todos.list)
-        return this.props.todos.list.map((todo) => {
+        let todosList = this.props.todos.list
+        if (this.props.todos.filter === 'completed') {
+            todosList = todosList.filter((todo) => todo.completed === true)
+        } else if (this.props.todos.filter === 'uncompleted') {
+            todosList = todosList.filter((todo) => todo.completed === false)
+        }
+        return todosList.map((todo) => {
             let boundTodoClick = this.handleTodoClick.bind(this, todo)
             return (
                 <li key={todo.id} onClick={boundTodoClick}>
@@ -36,9 +41,11 @@ class TodoList extends Component {
     }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, {params}) {
+    const todosReducer = state.todos
+    console.log(params)
     return {
-        todos: state.todos
+        todos: {...todosReducer, filter: params.filter || 'all'}
     }
 }
 
