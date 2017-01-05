@@ -1,7 +1,8 @@
+import {List} from 'immutable'
 import {LIST_TODOS, ADD_TODO, COMPLETE_TODO} from './actions'
 
 const INITIAL_STATE = {
-    list: [{id: 1, name: 'Test', completed: false}],
+    list: List([]),
     filter: 'all'
 }
 
@@ -12,9 +13,8 @@ export default function reducer(state = INITIAL_STATE, action) {
         }
 
         case ADD_TODO: {
-            const newList = state.list.slice()
-            newList.push({
-                id: newList.length + 1,
+            const newList = state.list.push({
+                id: state.list.size + 1,
                 name: action.payload,
                 completed: false
             })
@@ -22,13 +22,13 @@ export default function reducer(state = INITIAL_STATE, action) {
         }
 
         case COMPLETE_TODO: {
-            const newList = state.list.slice()
-            for (var i in newList) {
-                if (newList[i].name === action.payload.name) {
-                    newList[i].completed = true
-                    break
+            const newList = state.list.map((todo) => {
+                if (todo.id === action.payload.id) {
+                    return {id: todo.id, name: todo.name, completed: true}
+                } else {
+                    return todo
                 }
-            }
+            })
             return {...state, list: newList}
         }
 
