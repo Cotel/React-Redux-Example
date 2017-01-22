@@ -34,9 +34,12 @@ class TodoList extends Component {
 
     render() {
         return (
-            <ul>
-                {this.renderTodos()}
-            </ul>
+            <div>
+                <p>{this.props.todos.isLoading ? 'Cargando...' : ''}</p>
+                <ul>
+                    {this.renderTodos()}
+                </ul>
+            </div>
         )
     }
 }
