@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 
 import {listTodos, completeTodo} from '../data/todo/actions'
+import Todo from '../components/Todo'
 
 class TodoList extends Component {
 
@@ -26,7 +27,7 @@ class TodoList extends Component {
             let boundTodoClick = this.handleTodoClick.bind(this, todo)
             return (
                 <li key={todo.id} onClick={boundTodoClick}>
-                    {todo.name} - Completado: {todo.completed === true ? 'SI' : 'NO'}
+                    <Todo title={todo.name} completed={todo.completed} />
                 </li>
             )
         })
@@ -46,7 +47,6 @@ class TodoList extends Component {
 
 function mapStateToProps(state, {params}) {
     const todosReducer = state.todos
-    console.log(params)
     return {
         todos: {...todosReducer, filter: params.filter || 'all'}
     }
