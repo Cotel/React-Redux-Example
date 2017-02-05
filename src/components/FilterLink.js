@@ -14,7 +14,7 @@ export default class FilterLink extends Component {
 
         return (
             <Link
-                to={filter === 'all' ? '' : filter}
+                to={filter === 'all' ? 'all' : filter}
                 activeStyle={{
                     textDecoration: 'none',
                     color: 'black'
